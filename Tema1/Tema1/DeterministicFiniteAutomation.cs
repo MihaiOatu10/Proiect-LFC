@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace Tema1
 {
     internal class DeterministicFiniteAutomation
@@ -70,5 +71,69 @@ namespace Tema1
             Console.WriteLine("[Validare OK] Automatul Finit Deterministic este valid.");
             return true;
         }
+
+    public void PrintAutomaton()
+    {
+        var sortedAlphabet = this.alphabet.OrderBy(c => c).ToList();
+        var sortedStates = this.states.OrderBy(s => s).ToList();
+
+            Console.Write("δ\t");
+            foreach (char symbol in sortedAlphabet)
+            {
+                Console.Write($"{symbol}\t");
+            }
+            Console.WriteLine();
+
+            foreach (string state in sortedStates)
+            {
+                string prefix = "";
+                if (state == this.startState)
+                {
+                    prefix += "->";
+                }
+                if (this.acceptStates.Contains(state))
+                {
+                    prefix += "*";
+                }
+
+                Console.Write($"{prefix}{state}\t");
+
+                foreach (char symbol in sortedAlphabet)
+                {
+                    var key = (state, symbol);
+                    if (this.transitionFunction.TryGetValue(key, out string destState))
+                    {
+                        Console.Write($"{destState}\t");
+                    }
+                    else
+                    {
+                        Console.Write("-\t");
+                    }
+                }
+                Console.WriteLine();
+            }
+        }
+        public bool CheckWord(string word)
+        {
+            string currentState = this.startState;
+
+            foreach (char symbol in word)
+            {
+                if (!this.alphabet.Contains(symbol))
+                {
+                    return false;
+                }
+
+                var key = (currentState, symbol);
+                if (!this.transitionFunction.TryGetValue(key, out string nextState))
+                {
+                    return false;
+                }
+                currentState = nextState;
+            }
+
+            return this.acceptStates.Contains(currentState);
+        }
+
     }
 }
