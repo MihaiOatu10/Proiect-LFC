@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Tema1
 {
-    internal class DeterministicFiniteAutomation
+    public class DeterministicFiniteAutomation
     {
         private HashSet<string> states;
         private HashSet<char> alphabet;

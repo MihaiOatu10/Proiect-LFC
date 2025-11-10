@@ -1,2 +1,8 @@
 C:\Users\anca\Desktop\TEMA 1 LFC\Proiect-LFC\Tema1\Tema1\obj\Debug\Tema1.csproj.AssemblyReference.cache
 C:\Users\anca\Desktop\TEMA 1 LFC\Proiect-LFC\Tema1\Tema1\obj\Debug\Tema1.csproj.CoreCompileInputs.cache
+C:\Users\anca\Desktop\TEMA 1 LFC\Proiect-LFC\Tema1\Tema1\bin\Debug\Tema1.exe.config
+C:\Users\anca\Desktop\TEMA 1 LFC\Proiect-LFC\Tema1\Tema1\bin\Debug\Tema1.exe
+C:\Users\anca\Desktop\TEMA 1 LFC\Proiect-LFC\Tema1\Tema1\bin\Debug\Tema1.pdb
+C:\Users\anca\Desktop\TEMA 1 LFC\Proiect-LFC\Tema1\Tema1\obj\Debug\Tema1.exe
+C:\Users\anca\Desktop\TEMA 1 LFC\Proiect-LFC\Tema1\Tema1\obj\Debug\Tema1.pdb
+C:\Users\anca\Desktop\TEMA 1 LFC\Proiect-LFC\Tema1\Tema1\obj\Debug\Tema1.exe.config
