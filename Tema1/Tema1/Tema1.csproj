@@ -45,7 +45,9 @@
     <Reference Include="System" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="regex.txt" />
+    <Content Include="regex.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
