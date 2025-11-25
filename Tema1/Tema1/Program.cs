@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace Tema1
 {
@@ -21,13 +18,13 @@ namespace Tema1
 
         static void Main(string[] args)
         {
-            Console.OutputEncoding = System.Text.Encoding.UTF8;
+            Console.OutputEncoding = Encoding.UTF8; 
             string inputFilePath = "regex.txt";
             string outputFilePath = "automaton_output.txt";
 
             if (!File.Exists(inputFilePath))
             {
-                Console.WriteLine($"Fișierul '{inputFilePath}' nu a fost găsit. Vă rugăm creați fișierul și adăugați o expresie regulată.");
+                Console.WriteLine($"Fișierul '{inputFilePath}' nu a fost găsit. Creați fișierul și adăugați o expresie regulată.");
                 Console.ReadKey();
                 return;
             }
@@ -47,8 +44,8 @@ namespace Tema1
 
             try
             {
-                dfa = RegexToDFA(r);
                 postfix = GetPostfix(r);
+                dfa = RegexToDFA(r);
                 Console.WriteLine("[Validare OK] Automatul M a fost generat cu succes.");
             }
             catch (Exception ex)
@@ -57,7 +54,6 @@ namespace Tema1
                 Console.ReadKey();
                 return;
             }
-
 
             while (true)
             {
@@ -75,9 +71,20 @@ namespace Tema1
                     case "1":
                         Console.WriteLine($"Forma postfixată: {postfix}");
                         break;
+
                     case "2":
-                        Console.WriteLine("Afișarea arborelui sintactic nu este implementată.");
+                        Console.WriteLine("\n--- Arbore Sintactic ---");
+                        try
+                        {
+                            var root = SyntaxTreeBuilder.BuildTree(postfix);
+                            SyntaxTreeBuilder.PrintTree(root);
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine("Nu s-a putut genera arborele: " + ex.Message);
+                        }
                         break;
+
                     case "3":
                         Console.WriteLine("\n--- Afișare Automaton (Consolă) ---");
                         dfa.PrintAutomaton();
@@ -92,6 +99,7 @@ namespace Tema1
                             Console.WriteLine($"Eroare la scrierea în fișier: {ex.Message}");
                         }
                         break;
+
                     case "4":
                         Console.WriteLine("Introduceți cuvinte de verificat (scrie 'gata' pentru a reveni la meniu):");
                         while (true)
@@ -106,8 +114,10 @@ namespace Tema1
                             Console.WriteLine(acceptat ? "=> ACCEPTAT" : "=> RESPINS");
                         }
                         break;
+
                     case "0":
                         return;
+
                     default:
                         Console.WriteLine("Alegere invalidă. Vă rugăm încercați din nou.");
                         break;
