@@ -18,7 +18,7 @@ namespace Tema1
 
         static void Main(string[] args)
         {
-            Console.OutputEncoding = Encoding.UTF8; 
+            Console.OutputEncoding = Encoding.UTF8;
             string inputFilePath = "regex.txt";
             string outputFilePath = "automaton_output.txt";
 
