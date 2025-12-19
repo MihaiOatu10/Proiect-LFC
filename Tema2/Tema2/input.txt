@@ -1,0 +1,25 @@
+﻿int aduna(int a, int b) {
+	return a + b;
+}
+
+int scade(int a, int b) {
+	return a - b;
+}
+
+int main() {
+	int rezultat;
+	int a = 5;
+	int b = 10;
+	if(a<b)
+	{
+		rezultat = aduna(a,b);
+	}
+	else
+	{
+		while(a>b)
+		{
+			b = scade(b,a);
+		}
+	}
+	return 0;
+}
