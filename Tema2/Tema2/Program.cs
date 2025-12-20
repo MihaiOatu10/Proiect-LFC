@@ -20,15 +20,15 @@ namespace MiniLangCompiler
                 if (!File.Exists(inputFilePath))
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine($"EROARE: Fișierul '{inputFilePath}' nu a fost găsit.");
-                    Console.WriteLine($"Calea curentă de execuție este: {Directory.GetCurrentDirectory()}");
-                    Console.WriteLine("Asigură-te că ai setat 'Copy to Output Directory' pe 'Copy Always' pentru input.txt în Visual Studio.");
+                    Console.WriteLine($"EROARE: Fisierul '{inputFilePath}' nu a fost gasit.");
+                    Console.WriteLine($"Calea curenta de executie este: {Directory.GetCurrentDirectory()}");
+                    Console.WriteLine("Asigura-te ca ai setat 'Copy to Output Directory' pe 'Copy Always' pentru input.txt in Visual Studio.");
                     Console.ResetColor();
                     return;
                 }
 
                 string input = File.ReadAllText(inputFilePath);
-                Console.WriteLine("Compilare începută...");
+                Console.WriteLine("Compilare inceputa...");
 
                 AntlrInputStream inputStream = new AntlrInputStream(input);
                 MiniLangLexer lexer = new MiniLangLexer(inputStream);
@@ -48,7 +48,7 @@ namespace MiniLangCompiler
                         }
                     }
                 }
-                Console.WriteLine($"- Tokeni salvați în {tokensFilePath}");
+                Console.WriteLine($"- Tokeni salvati in {tokensFilePath}");
 
                 var tree = parser.program();
                 SemanticVisitor visitor = new SemanticVisitor();
@@ -59,14 +59,14 @@ namespace MiniLangCompiler
                     writer.WriteLine("--- Variabile Globale ---");
                     foreach (var v in visitor.SymbolTable.GlobalVariables)
                     {
-                        writer.WriteLine($"Nume: {v.Name}, Tip: {v.Type}, Inițializat cu: {v.InitValue}, Const: {v.IsConst}");
+                        writer.WriteLine($"Nume: {v.Name}, Tip: {v.Type}, Initializat cu: {v.InitValue}, Const: {v.IsConst}");
                     }
                 }
-                Console.WriteLine($"- Variabile globale salvate în {varsFilePath}");
+                Console.WriteLine($"- Variabile globale salvate in {varsFilePath}");
 
                 using (StreamWriter writer = new StreamWriter(funcsFilePath))
                 {
-                    writer.WriteLine("--- Funcții ---");
+                    writer.WriteLine("--- Functii ---");
                     foreach (var f in visitor.SymbolTable.Functions.Values)
                     {
                         string isMain = f.Name == "main" ? "DA" : "NU";
@@ -74,7 +74,7 @@ namespace MiniLangCompiler
 
                         writer.WriteLine($"Nume: {f.Name}");
                         writer.WriteLine($"  Tip Retur: {f.Type}");
-                        writer.WriteLine($"  Main: {isMain}, Recursivă: {isRec}");
+                        writer.WriteLine($"  Main: {isMain}, Recursiva: {isRec}");
 
                         writer.WriteLine("  Parametri:");
                         if (f.Parameters.Count == 0) writer.WriteLine("    (niciunul)");
@@ -94,43 +94,43 @@ namespace MiniLangCompiler
                         writer.WriteLine("-----------------------------");
                     }
                 }
-                Console.WriteLine($"- Detalii funcții salvate în {funcsFilePath}");
+                Console.WriteLine($"- Detalii functii salvate in {funcsFilePath}");
 
                 bool hasMain = visitor.SymbolTable.Functions.ContainsKey("main");
-                if (!hasMain) visitor.Errors.Add("Eroare Semantică: Lipsește funcția 'main'.");
+                if (!hasMain) visitor.Errors.Add("Eroare Semantica: Lipseste functia 'main'.");
 
                 using (StreamWriter writer = new StreamWriter(errorsFilePath))
                 {
                     int totalErrors = visitor.Errors.Count + parser.NumberOfSyntaxErrors;
                     if (totalErrors == 0)
                     {
-                        writer.WriteLine("Compilare reușită! Nu s-au găsit erori.");
+                        writer.WriteLine("Compilare reusita! Nu s-au gasit erori.");
                         Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("Compilare reușită! Verifică fișierele generate.");
+                        Console.WriteLine("Compilare reusita! Verifica fisierele generate.");
                         Console.ResetColor();
                     }
                     else
                     {
-                        writer.WriteLine($"S-au găsit erori ({totalErrors}):");
+                        writer.WriteLine($"S-au gasit erori ({totalErrors}):");
                         if (parser.NumberOfSyntaxErrors > 0)
-                            writer.WriteLine("Erori sintactice detectate (verifică output-ul consolei pentru detalii ANTLR).");
+                            writer.WriteLine("Erori sintactice detectate (verifica output-ul consolei pentru detalii ANTLR).");
 
                         foreach (var err in visitor.Errors)
                         {
                             writer.WriteLine(err);
                         }
                         Console.ForegroundColor = ConsoleColor.Red;
-                        Console.WriteLine($"Au fost găsite {totalErrors} erori. Detalii în errors.txt.");
+                        Console.WriteLine($"Au fost gasite {totalErrors} erori. Detalii in errors.txt.");
                         Console.ResetColor();
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine("A apărut o excepție neașteptată: " + ex.Message);
+                Console.WriteLine("A aparut o exceptie neasteptata: " + ex.Message);
             }
 
-            Console.WriteLine("\napasă orice tastă pentru a ieși...");
+            Console.WriteLine("\napasa orice tasta pentru a iesi...");
             Console.ReadKey();
         }
     }
